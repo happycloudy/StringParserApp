@@ -3,7 +3,6 @@ const FindCommEles = require('./modules/FindCommEles')
 
 
 async function Init() {
-    
     fs.readFile('./input.txt',async (err,data) => {
         if(err) return console.log("Нету файла input.txt");
         let input = data.toString().split('\r\n')
@@ -17,8 +16,6 @@ async function Init() {
         let ArrOfCommonElements = await FindCommEles(input) // нахождение всех уникальных общих вхождений 
         fs.writeFile('./outputCommonElements.txt', ArrOfCommonElements.join('\r\n'),(err) => err?console.log(err):null) // запись в файл
     })
-
-    
 }
 
 Init() 
