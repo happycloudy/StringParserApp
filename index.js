@@ -8,7 +8,7 @@ function Init() {
         console.log("Нет файла input.txt в папке с index.js");
         return error
     }
-
+    if(input.join('') == '') return console.log('Файл пустой')
     let ArrSortByLength = input.sort((a, b) => a.length < b.length? -1 : 1) // сортировка по длине строк
     fs.writeFileSync('./outputSortByLength.txt', ArrSortByLength.join('\r\n') ) // запись в файл 
     
@@ -45,13 +45,11 @@ function FindCommEles(input) { // функция нахождение уника
 
 function unique(arr) { // функция нахождения уникальных элементов массива
     let result = [];
-  
     for (let str of arr) {
       if (!result.includes(str)) {
         result.push(str);
       }
     }
-  
     return result;
 }
 
