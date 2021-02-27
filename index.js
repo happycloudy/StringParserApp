@@ -1,26 +1,33 @@
 const fs = require('fs')
 
-function Init() {
-    let input
-    try {
-        input = fs.readFileSync('./input.txt').toString().split('\r\n') // чтение файла
-    } catch (error) {
-        console.log("Нет файла input.txt в папке с index.js");
-        return error
-    }
 
-    let ArrSortByLength = input.sort((a, b) => a.length < b.length? -1 : 1) // сортировка по длине строк
-    fs.writeFileSync('./outputSortByLength.txt', ArrSortByLength.join('\r\n') ) // запись в файл 
+async function Init() {
+    // let input
+    // try {
+    //     input = fs.readFileSync('./input.txt').toString().split('\r\n') // чтение файла
+    // } catch (error) {
+    //     console.log("Нет файла input.txt в папке с index.js");
+    //     return error
+    // }
     
-    let ArrSortByAlf = input.sort((a, b) => a.localeCompare(b)) // сорировка по алфавиту
-    fs.writeFileSync('./outputSortByAlf.txt', ArrSortByAlf.join('\r\n') ) // запись в файл
+    fs.readFile('./input.txt',(err,data) => {
+        if(err) console.log(err);
+        let input = data.toString().split('\r\n')
+        let ArrSortByLength = input.sort((a, b) => a.length < b.length? -1 : 1) // сортировка по длине строк
+        fs.writeFile('./outputSortByLength.txt',ArrSortByLength.join('\r\n'),(err) => err?console.log(err):null) // запись в файл 
+
+        let ArrSortByAlf = input.sort((a, b) => a.localeCompare(b)) // сорировка по алфавиту
+        fs.writeFile('./outputSortByAlf.txt', ArrSortByAlf.join('\r\n'),(err) => err?console.log(err):null) // запись в файл
+
+        let ArrOfCommonElements = await FindCommEles(input) // нахождение всех уникальных общих вхождений 
+        fs.writeFile('./outputCommonElements.txt', ArrOfCommonElements.join('\r\n'),(err) => err?console.log(err):null) // запись в файл
+    })
+
     
-    let ArrOfCommonElements = FindCommEles(input) // нахождение всех уникальных общих вхождений 
-    fs.writeFileSync('./outputCommonElements.txt', ArrOfCommonElements.join('\r\n') ) // запись в файл
 }
 
 
-function FindCommEles(input) { // функция нахождение уникальных символа(ов), содержащихся в каждой строке
+async function FindCommEles(input) { // функция нахождение уникальных символа(ов), содержащихся в каждой строке
     let CommEles = []
     let shortestStr = FindShortest(input)
     let isComms = true
@@ -39,6 +46,7 @@ function FindCommEles(input) { // функция нахождение уника
         substr++
     }
     CommEles = unique(CommEles)
+    console.log(CommEles);
     return CommEles
 }
 
