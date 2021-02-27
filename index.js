@@ -3,17 +3,11 @@ const FindCommEles = require('./modules/FindCommEles')
 
 
 async function Init() {
-    // let input
-    // try {
-    //     input = fs.readFileSync('./input.txt').toString().split('\r\n') // чтение файла
-    // } catch (error) {
-    //     console.log("Нет файла input.txt в папке с index.js");
-    //     return error
-    // }
     
     fs.readFile('./input.txt',async (err,data) => {
-        if(err) console.log(err);
+        if(err) return console.log("Нету файла input.txt");
         let input = data.toString().split('\r\n')
+        if(input.join('') == '') return console.log("Файл пустой");
         let ArrSortByLength = input.sort((a, b) => a.length < b.length? -1 : 1) // сортировка по длине строк
         fs.writeFile('./outputSortByLength.txt',ArrSortByLength.join('\r\n'),(err) => err?console.log(err):null) // запись в файл 
 
