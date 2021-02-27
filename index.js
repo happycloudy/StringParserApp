@@ -1,4 +1,5 @@
 const fs = require('fs')
+const FindCommEles = require('./modules/FindCommEles')
 
 
 async function Init() {
@@ -25,60 +26,5 @@ async function Init() {
 
     
 }
-
-
-async function FindCommEles(input) { // функция нахождение уникальных символа(ов), содержащихся в каждой строке
-    let CommEles = []
-    let shortestStr = await FindShortest(input)
-    let isComms = true
-    let substr = 1
-    
-    while (substr <= shortestStr.length) {
-        for (let j = 0; j < shortestStr.length; j++) {
-            const char = shortestStr.substr(j,substr);
-            for (let i = 0; i < input.length; i++) {
-                const element = input[i];
-                isComms = await getCommsInStr(element, char)   
-                if (isComms == false) break
-            }
-            if (isComms == true) CommEles.push(char)
-        }
-        substr++
-    }
-    CommEles = await unique(CommEles)
-    return CommEles
-}
-
-
-async function unique(arr) { // функция нахождения уникальных элементов массива
-    let result = [];
-  
-    for (let str of arr) {
-      if (!result.includes(str)) {
-        result.push(str);
-      }
-    }
-  
-    return result;
-}
-
-
-async function FindShortest(arr){  // функция нахождения самой короткой строки в массиве
-    let shortestStr = arr[0]
-    arr.forEach(str => {
-       if(shortestStr.length > str.length){
-           shortestStr = str
-       } 
-    });
-    return shortestStr
-}
-
-
-async function getCommsInStr(str,substr) { // функция нахождения одинаковых символа(ов) substr в строке str
-    let indexOfCommElems = str.indexOf(substr)
-    if(indexOfCommElems == -1) return false
-    else return true
-}
-
 
 Init() 
