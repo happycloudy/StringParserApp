@@ -4,8 +4,9 @@ const StopWatch = require('stopwatch-js')
 
 async function Init() {
     stopWatch = new StopWatch();
-    stopWatch.start();
+    
     fs.readFile('./input.txt',async (err,data) => {
+        stopWatch.start();
         if(err) return console.log("Нету файла input.txt");
         let input = data.toString().split('\r\n')
         if(input.join('') == '') return console.log("Файл пустой");
@@ -19,9 +20,13 @@ async function Init() {
         let ArrOfCommonElements = await FindCommEles(input) // нахождение всех уникальных общих вхождений 
         fs.writeFile('./outputCommonElements.txt', ArrOfCommonElements.join('\r\n'),(err) => err?console.log(err):null) // запись в файл
         stopWatch.stop();
-        
         console.log("Время выполнения " + stopWatch.duration() );
     })
+    
 }
-
+// async function load (){
+//     let time = new Date().getTime()
+//     console.log(time - new Date().getTime());
+// }
+// load()
 Init() 
