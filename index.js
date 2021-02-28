@@ -18,10 +18,10 @@ async function Init() {
 
         let ArrOfCommonElements = await FindCommEles(input) // нахождение всех уникальных общих вхождений 
         fs.writeFile('./outputCommonElements.txt', ArrOfCommonElements.join('\r\n'),(err) => err?console.log(err):null) // запись в файл
+        stopWatch.stop();
         
+        console.log("Время выполнения " + stopWatch.duration() );
     })
-    stopWatch.stop();
-    console.log("Время выполнения " + stopWatch.duration() );
 }
 
 Init() 
