@@ -2,9 +2,9 @@ const getCommsInStr = require('./getCommsInStr')
 const unique = require('./SetUnique')
 const FindShortest = require('./FindShortest')
 
-module.exports = async function FindCommEles(input) { // функция нахождение уникальных символа(ов), содержащихся в каждой строке
+module.exports = async function FindCommEles(input,shortestStr) { // функция нахождение уникальных символа(ов), содержащихся в каждой строке
     let CommEles = []
-    let shortestStr = await FindShortest(input)
+    // let shortestStr = await FindShortest(input)
     let isComms = true
     let substr = 1
     
