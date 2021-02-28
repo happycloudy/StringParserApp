@@ -7,6 +7,7 @@ async function Init() {
     
     fs.readFile('./input.txt',async (err,data) => {
         if(err) return console.log("Нету файла input.txt");
+        stopWatch.start();
         let input = data.toString().split('\r\n')
         if(input.join('') == '') return console.log("Файл пустой");
         
@@ -16,7 +17,6 @@ async function Init() {
         let ArrSortByAlf = input.sort((a, b) => a.localeCompare(b)) // сорировка по алфавиту
         fs.writeFile('./outputSortByAlf.txt', ArrSortByAlf.join('\r\n'),(err) => err?console.log(err):null) // запись в файл
         
-        stopWatch.start();
         let ArrOfCommonElements = await FindCommEles(input, ArrSortByAlf[0]) // нахождение всех уникальных общих вхождений 
         stopWatch.stop();
         fs.writeFile('./outputCommonElements.txt', ArrOfCommonElements.join('\r\n'),(err) => err?console.log(err):null) // запись в файл
