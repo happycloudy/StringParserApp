@@ -1,9 +1,10 @@
 const fs = require('fs')
 const FindCommEles = require('./modules/FindCommEles')
-
+const StopWatch = require('stopwatch-js')
 
 async function Init() {
-    let time = new Date().getTime()
+    stopWatch = new StopWatch();
+    stopWatch.start();
     fs.readFile('./input.txt',async (err,data) => {
         if(err) return console.log("Нету файла input.txt");
         let input = data.toString().split('\r\n')
@@ -17,8 +18,10 @@ async function Init() {
 
         let ArrOfCommonElements = await FindCommEles(input) // нахождение всех уникальных общих вхождений 
         fs.writeFile('./outputCommonElements.txt', ArrOfCommonElements.join('\r\n'),(err) => err?console.log(err):null) // запись в файл
-        console.log("Время выполнения " + (new Date().getTime() - time + "мс"));
+        
     })
+    stopWatch.stop();
+    console.log("Время выполнения " + stopWatch.duration() );
 }
 
 Init() 
