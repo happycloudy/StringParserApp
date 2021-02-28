@@ -17,11 +17,12 @@ async function Init() {
         let ArrSortByAlf = input.sort((a, b) => a.localeCompare(b)) // сорировка по алфавиту
         fs.writeFile('./outputSortByAlf.txt', ArrSortByAlf.join('\r\n'),(err) => err?console.log(err):null) // запись в файл
 
-        stopWatch.stop();
-        console.log("Время выполнения " + stopWatch.duration() );
         
         let ArrOfCommonElements = await FindCommEles(input, ArrSortByAlf[0]) // нахождение всех уникальных общих вхождений 
         fs.writeFile('./outputCommonElements.txt', ArrOfCommonElements.join('\r\n'),(err) => err?console.log(err):null) // запись в файл
+
+        stopWatch.stop();
+        console.log("Время выполнения " + stopWatch.duration() );
     })
     
 }
