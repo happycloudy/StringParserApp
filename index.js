@@ -3,8 +3,8 @@ const FindCommEles = require('./modules/FindCommEles')
 
 
 async function Init() {
+    let time = new Date().getTime()
     fs.readFile('./input.txt',async (err,data) => {
-        let time = new Date().getTime()
         if(err) return console.log("Нету файла input.txt");
         let input = data.toString().split('\r\n')
         if(input.join('') == '') return console.log("Файл пустой");
