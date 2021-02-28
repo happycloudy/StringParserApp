@@ -1,5 +1,6 @@
 const fs = require('fs')
 
+
 function Init() {
     let input
     try {
@@ -8,6 +9,7 @@ function Init() {
         console.log("Нет файла input.txt в папке с index.js");
         return error
     }
+    let time = new Date().getTime()
     if(input.join('') == '') return console.log('Файл пустой')
     let ArrSortByLength = input.sort((a, b) => a.length < b.length? -1 : 1) // сортировка по длине строк
     fs.writeFileSync('./outputSortByLength.txt', ArrSortByLength.join('\r\n') ) // запись в файл 
@@ -17,6 +19,7 @@ function Init() {
     
     let ArrOfCommonElements = FindCommEles(input) // нахождение всех уникальных общих вхождений 
     fs.writeFileSync('./outputCommonElements.txt', ArrOfCommonElements.join('\r\n') ) // запись в файл
+    console.log("Время выполнения " + (new Date().getTime() - time + "мс"));
 }
 
 
