@@ -19,7 +19,7 @@ module.exports = async function FindCommEles(input,shortestStr) { // функц�
             // console.log(char);
         }
         substr++
-        console.log(" ");
+        // console.log(" ");
     }
     CommEles = await unique(CommEles)
     return CommEles
