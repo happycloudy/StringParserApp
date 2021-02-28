@@ -16,7 +16,7 @@ module.exports = async function FindCommEles(input,shortestStr) { // функц�
                 if (isComms == false) break
             }
             if (isComms == true) CommEles.push(char)
-            console.log(char);
+            // console.log(char);
         }
         substr++
         // console.log(" ");
