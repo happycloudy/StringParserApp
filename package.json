@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "fs": "0.0.1-security",
+    "line-by-line-reader": "^1.0.1",
     "stopwatch-js": "0.0.1"
   }
 }
