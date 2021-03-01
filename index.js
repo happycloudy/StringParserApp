@@ -7,20 +7,38 @@ async function Init() {
     
     fs.readFile('../FileGenerator/test.txt',async (err,data) => {
         if(err) return console.log("Нету файла input.txt");
-        await stopWatch.start();
         let input = data.toString().split('\n')
         if(input.join('') == '') return console.log("Файл пустой");
         
+
+        await stopWatch.start();
         let ArrSortByLength = [...input.sort((a, b) => a.length < b.length? -1 : 1)] // сортировка по длине строк
-        fs.writeFile('./outputSortByLength.txt',ArrSortByLength.join('\n'),(err) => err?console.log(err):null) // запись в файл 
-        
+
         let ArrSortByAlf = input.sort((a, b) => a.localeCompare(b)) // сорировка по алфавиту
-        fs.writeFile('./outputSortByAlf.txt', ArrSortByAlf.join('\n'),(err) => err?console.log(err):null) // запись в файл
-        
+
         let ArrOfCommonElements = await FindCommEles(input, ArrSortByAlf[0]) // нахождение всех уникальных общих вхождений 
         await stopWatch.stop();
-        fs.writeFile('./outputCommonElements.txt', ArrOfCommonElements.join('\n'),(err) => err?console.log(err):null) // запись в файл
-        
+
+
+
+        let path = './outputSortByLength.txt'
+        if(fs.existsSync(path)) fs.rmSync(path)
+        ArrSortByLength.forEach((str)=>{
+            fs.appendFileSync('./outputSortByLength.txt', str+'\n', err => err) // запись в файл 
+        })
+
+        path = './outputSortByAlf.txt'
+        if(fs.existsSync(path)) fs.rmSync(path)
+        ArrSortByAlf.forEach((str)=>{
+            fs.appendFileSync('./outputSortByAlf.txt', str+'\n', err=>err) // запись в файл 
+        })
+
+        path = './outputCommonElements.txt'
+        if(fs.existsSync(path)) fs.rmSync(path)
+        ArrOfCommonElements.forEach((str,ind)=>{
+            fs.appendFile('./outputCommonElements.txt', str+'\n', err=>err) // запись в файл 
+        })
+    
         console.log("Время выполнения " + stopWatch.duration() );
     })
     
