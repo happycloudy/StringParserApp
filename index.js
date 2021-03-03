@@ -2,7 +2,7 @@ const fs = require('fs')
 const FindCommEles = require('./modules/FindCommEles')
 const StopWatch = require('stopwatch-js')
 const lineReader = require ('line-by-line-reader');
-
+const TimSort = require('timsort')
 
 async function Init() {
     stopWatch = new StopWatch();
@@ -11,16 +11,19 @@ async function Init() {
     await lineReader(filepath)
         .then(fileContent => {
             input = fileContent.lines
+            input = input.filter((str)=> str != 'init')
         })
         .catch(err => {
             console.log(err);
         });
-
+    
         
     await stopWatch.start();
-    let ArrSortByLength = [...input.sort((a, b) => a.length < b.length ? -1 : 1)] // сортировка по длине строк
-
-    let ArrSortByAlf = input.sort((a, b) => a.localeCompare(b)) // сорировка по алфавиту
+    // let ArrSortByLength = [...input.sort((a, b) => a.length < b.length ? -1 : 1)] // сортировка по длине строк
+    TimSort.sort(input, (a,b)=> a.length-b.length)
+    let ArrSortByLength = [...input] // сортировка по длине строк
+    TimSort.sort(input, (a, b) => a.localeCompare(b))
+    let ArrSortByAlf = [...input] // сорировка по алфавиту
 
     let ArrOfCommonElements = await FindCommEles(input, ArrSortByAlf[0]) // нахождение всех уникальных общих вхождений 
     await stopWatch.stop();
