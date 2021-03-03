@@ -9,9 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "array-timsort": "^1.0.3",
+    "fast-sort": "^2.2.0",
     "fs": "0.0.1-security",
     "line-by-line-reader": "^1.0.1",
-    "stopwatch-js": "0.0.1",
-    "timsort": "^0.3.0"
+    "sort-es": "^1.2.0",
+    "stopwatch-js": "0.0.1"
   }
 }
