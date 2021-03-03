@@ -2,7 +2,7 @@ const fs = require('fs')
 const FindCommEles = require('./modules/FindCommEles')
 const StopWatch = require('stopwatch-js')
 const lineReader = require ('line-by-line-reader');
-
+const TimSort = require('timsort')
 
 async function Init() {
     stopWatch = new StopWatch();
@@ -18,13 +18,17 @@ async function Init() {
 
         
     await stopWatch.start();
-    let ArrSortByLength = [...input.sort((a, b) => a.length < b.length ? -1 : 1)] // сортировка по длине строк
+    // let ArrSortByLength = [...input.sort((a, b) => a.length < b.length ? -1 : 1)] // сортировка по длине строк
+    TimSort.sort(input,(a, b) => a.length < b.length ? -1 : 1)
+    let ArrSortByLength = [...input]
     await stopWatch.stop();
     console.log("Время сортировки по длине" + stopWatch.duration()*1000 + 'мс\n' );
     
     
     await stopWatch.start();
-    let ArrSortByAlf = input.sort((a, b) => a.localeCompare(b)) // сорировка по алфавиту
+    // let ArrSortByAlf = input.sort((a, b) => a.localeCompare(b)) // сорировка по алфавиту
+    TimSort.sort(input,(a, b) => a.localeCompare(b) )
+    let ArrSortByAlf = [...input]
     await stopWatch.stop();
     console.log("Время сортировки по алфавиту" + stopWatch.duration()*1000 + 'мс\n' );
     
