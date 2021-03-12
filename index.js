@@ -6,7 +6,7 @@ const quickSort = require('./modules/FastSort')
 
 async function Init() {
     stopWatch = new StopWatch();
-    let filepath = "../FileGenerator/test.txt";
+    let filepath = "./input1.txt";
     let input = []
     lr = new lineReader(filepath);
     lr.on('error', function (err) {
@@ -18,6 +18,10 @@ async function Init() {
         lr.resume()
     });
     lr.on('end', async function () {
+        if(!input.length) {
+            console.log("Файл пустой");
+            return 0
+        }
         await stopWatch.start();
         let ArrSortByLength = [...input.sort((a, b) => a.length < b.length ? -1 : 1)] // сортировка по длине строк
         await stopWatch.stop();
@@ -28,6 +32,7 @@ async function Init() {
         let ArrSortByAlf = [...quickSort(input)] // сорировка по алфавиту
         await stopWatch.stop();
         console.log("Время сортировки по алфавиту" + stopWatch.duration() * 1000 + 'мс\n');
+
 
         await stopWatch.start();
         let ArrOfCommonElements = await FindCommEles(input, ArrSortByAlf[0]) // нахождение всех уникальных общих вхождений  
