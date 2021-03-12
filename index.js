@@ -6,7 +6,7 @@ const quickSort = require('./modules/FastSort')
 
 async function Init() {
     stopWatch = new StopWatch();
-    let filepath = "./input1.txt";
+    let filepath = "./input.txt";
     let input = []
     lr = new lineReader(filepath);
     lr.on('error', function (err) {
